@@ -1,0 +1,119 @@
+diff -u0 deployment_noBond_34/41.yaml deployment_34/41.yaml
+--- deployment_noBond_34/41.yaml	2016-06-14 12:37:48.225112981 +0000
++++ deployment_34/41.yaml	2016-06-14 12:41:20.477984947 +0000
+@@ -516,0 +517,2 @@
++  - action: add-br
++    name: br-aux
+@@ -520 +522 @@
+-    - br-fw-admin
++    - br-aux
+@@ -525,0 +528,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -528 +543 @@
+-    name: eno1.1502
++    name: bond0.1502
+@@ -531 +546 @@
+-    name: eno1.1503
++    name: bond0.1503
+@@ -534 +549 @@
+-    name: eno1.1501
++    name: bond0.1501
+diff -u0 deployment_noBond_34/42.yaml deployment_34/42.yaml
+--- deployment_noBond_34/42.yaml	2016-06-14 12:37:48.694108171 +0000
++++ deployment_34/42.yaml	2016-06-14 12:41:20.984979943 +0000
+@@ -494,0 +495,2 @@
++  - action: add-br
++    name: br-aux
+@@ -498 +500 @@
+-    - br-fw-admin
++    - br-aux
+@@ -503,0 +506,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -506 +521 @@
+-    name: eno1.1502
++    name: bond0.1502
+@@ -509 +524 @@
+-    name: eno1.1503
++    name: bond0.1503
+diff -u0 deployment_noBond_34/43.yaml deployment_34/43.yaml
+--- deployment_noBond_34/43.yaml	2016-06-14 12:37:49.174103247 +0000
++++ deployment_34/43.yaml	2016-06-14 12:41:21.552974342 +0000
+@@ -494,0 +495,2 @@
++  - action: add-br
++    name: br-aux
+@@ -498 +500 @@
+-    - br-fw-admin
++    - br-aux
+@@ -503,0 +506,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -506 +521 @@
+-    name: eno1.1502
++    name: bond0.1502
+@@ -509 +524 @@
+-    name: eno1.1503
++    name: bond0.1503
+diff -u0 deployment_noBond_34/44.yaml deployment_34/44.yaml
+--- deployment_noBond_34/44.yaml	2016-06-14 12:37:49.643098438 +0000
++++ deployment_34/44.yaml	2016-06-14 12:41:22.217967776 +0000
+@@ -494,0 +495,2 @@
++  - action: add-br
++    name: br-aux
+@@ -498 +500 @@
+-    - br-fw-admin
++    - br-aux
+@@ -503,0 +506,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -506 +521 @@
+-    name: eno1.1502
++    name: bond0.1502
+@@ -509 +524 @@
+-    name: eno1.1503
++    name: bond0.1503

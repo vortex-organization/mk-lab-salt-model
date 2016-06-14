@@ -1,125 +1,31 @@
-networking_parameters:
-  base_mac: fa:16:3e:00:00:00
-  configuration_template: null
-  dns_nameservers:
-  - 8.8.4.4
-  - 8.8.8.8
-  floating_name: admin_floating_net
-  floating_ranges:
-  - - 172.16.53.17
-    - 172.16.53.31
-  gre_id_range:
-  - 2
-  - 65535
-  internal_cidr: 192.168.111.0/24
-  internal_gateway: 192.168.111.1
-  internal_name: admin_internal_net
-  net_l23_provider: ovs
-  segmentation_type: vlan
-  vlan_range:
-  - 1505
-  - 1519
-networks:
-- cidr: 172.16.53.0/26
-  gateway: 172.16.53.1
-  group_id: 31
-  id: 122
-  ip_ranges:
-  - - 172.16.53.2
-    - 172.16.53.16
-  meta:
-    cidr: 172.16.0.0/24
-    configurable: true
-    floating_range_var: floating_ranges
-    ip_range:
-    - 172.16.0.2
-    - 172.16.0.126
-    map_priority: 1
-    name: public
-    notation: ip_ranges
-    render_addr_mask: public
-    render_type: null
-    use_gateway: true
-    vips:
-    - haproxy
-    - vrouter
-    vlan_start: null
-  name: public
-  vlan_start: 1501
-- cidr: 192.168.1.0/24
-  gateway: null
-  group_id: 31
-  id: 124
-  ip_ranges:
-  - - 192.168.1.1
-    - 192.168.1.254
-  meta:
-    cidr: 192.168.1.0/24
-    configurable: true
-    map_priority: 2
-    name: storage
-    notation: cidr
-    render_addr_mask: storage
-    render_type: cidr
-    use_gateway: false
-    vlan_start: 102
-  name: storage
-  vlan_start: 1503
-- cidr: 192.168.0.0/24
-  gateway: null
-  group_id: 31
-  id: 123
-  ip_ranges:
-  - - 192.168.0.1
-    - 192.168.0.254
-  meta:
-    cidr: 192.168.0.0/24
-    configurable: true
-    map_priority: 2
-    name: management
-    notation: cidr
-    render_addr_mask: internal
-    render_type: cidr
-    use_gateway: false
-    vips:
-    - haproxy
-    - vrouter
-    vlan_start: 101
-  name: management
-  vlan_start: 1502
-- cidr: null
-  gateway: null
-  group_id: 31
-  id: 125
-  ip_ranges: []
-  meta:
-    configurable: false
-    map_priority: 2
-    name: private
-    neutron_vlan_range: true
-    notation: null
-    render_addr_mask: null
-    render_type: null
-    seg_type: vlan
-    use_gateway: false
-    vlan_start: null
-  name: private
-  vlan_start: null
-- cidr: 10.20.0.0/24
-  gateway: 10.20.0.2
-  group_id: null
-  id: 1
-  ip_ranges:
-  - - 10.20.0.3
-    - 10.20.0.254
-  meta:
-    configurable: false
-    map_priority: 0
-    notation: ip_ranges
-    render_addr_mask: null
-    render_type: null
-    unmovable: true
-    use_gateway: true
-  name: fuelweb_admin
-  vlan_start: null
-vips: {}
+--- network_33.yaml	2016-06-14 12:20:22.937158730 +0000
++++ network_33_net.yaml	2016-06-14 12:22:35.024291324 +0000
+@@ -9,2 +9,2 @@
+-  - - 172.16.0.130
+-    - 172.16.0.254
++  - - 172.16.53.17
++    - 172.16.53.31
+@@ -20,2 +20,2 @@
+-  - 1000
+-  - 1030
++  - 1505
++  - 1519
+@@ -23,2 +23,2 @@
+-- cidr: 172.16.0.0/24
+-  gateway: 172.16.0.1
++- cidr: 172.16.53.0/26
++  gateway: 172.16.53.1
+@@ -28,2 +28,2 @@
+-  - - 172.16.0.2
+-    - 172.16.0.126
++  - - 172.16.53.2
++    - 172.16.53.16
+@@ -48 +48 @@
+-  vlan_start: null
++  vlan_start: 1501
+@@ -70 +70 @@
+-  vlan_start: 101
++  vlan_start: 1502
+@@ -89 +89 @@
+-  vlan_start: 102
++  vlan_start: 1503

@@ -1,5 +1,5 @@
---- a/network_29.yaml	2016-06-14 13:09:34.210426251 +0300
-+++ b/network_29.yaml	2016-06-14 13:11:45.758540205 +0300
+--- a/network_30.yaml	2016-06-14 13:29:53.707176162 +0300
++++ b/network_30.yaml	2016-06-14 13:31:37.343243690 +0300
 @@ -6,8 +6,8 @@
    - 8.8.8.8
    floating_name: admin_floating_net
@@ -24,9 +24,9 @@
 -  gateway: 172.16.0.1
 +- cidr: 192.168.1.0/24
 +  gateway: null
-   group_id: 28
--  id: 110
-+  id: 112
+   group_id: 30
+-  id: 118
++  id: 120
    ip_ranges:
 -  - - 172.16.0.2
 -    - 172.16.0.126
@@ -63,7 +63,7 @@
 +  vlan_start: 1503
  - cidr: 192.168.0.0/24
    gateway: null
-   group_id: 28
+   group_id: 30
 @@ -67,26 +60,7 @@
      - vrouter
      vlan_start: 101
@@ -71,8 +71,8 @@
 -  vlan_start: 101
 -- cidr: 192.168.1.0/24
 -  gateway: null
--  group_id: 28
--  id: 112
+-  group_id: 30
+-  id: 120
 -  ip_ranges:
 -  - - 192.168.1.1
 -    - 192.168.1.254
@@ -91,15 +91,15 @@
 +  vlan_start: 1502
  - cidr: null
    gateway: null
-   group_id: 28
+   group_id: 30
 @@ -105,6 +79,32 @@
      vlan_start: null
    name: private
    vlan_start: null
 +- cidr: 172.16.53.0/26
 +  gateway: 172.16.53.1
-+  group_id: 28
-+  id: 110
++  group_id: 30
++  id: 118
 +  ip_ranges:
 +  - - 172.16.53.2
 +    - 172.16.53.16

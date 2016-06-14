@@ -1,5 +1,5 @@
---- a/network_30.yaml	2016-06-14 14:00:24.616363393 +0300
-+++ b/network_30.yaml	2016-06-14 14:00:25.880364179 +0300
+--- a/network_30.yaml	2016-06-14 11:10:04.530793161 +0000
++++ b/network_30.yaml	2016-06-14 11:13:43.898130669 +0000
 @@ -6,8 +6,8 @@
    - 8.8.8.8
    floating_name: admin_floating_net
@@ -30,7 +30,7 @@
 -  - - 172.16.0.2
 -    - 172.16.0.126
 +  - - 172.16.53.2
-+    - 172.16.53.16
++    - 172.16.0.16
    meta:
      cidr: 172.16.0.0/24
      configurable: true
@@ -40,32 +40,24 @@
    name: public
 -  vlan_start: null
 +  vlan_start: 1501
- - cidr: 192.168.0.0/24
-   gateway: null
-   group_id: 30
-@@ -67,7 +67,7 @@
-     - vrouter
-     vlan_start: 101
-   name: management
--  vlan_start: 101
-+  vlan_start: 1502
  - cidr: 192.168.1.0/24
    gateway: null
    group_id: 30
-@@ -86,7 +86,7 @@
+@@ -64,7 +64,7 @@
      use_gateway: false
      vlan_start: 102
    name: storage
 -  vlan_start: 102
 +  vlan_start: 1503
+ - cidr: 192.168.0.0/24
+   gateway: null
+   group_id: 30
+@@ -86,7 +86,7 @@
+     - vrouter
+     vlan_start: 101
+   name: management
+-  vlan_start: 101
++  vlan_start: 1502
  - cidr: null
    gateway: null
    group_id: 30
-@@ -105,7 +105,6 @@
-     vlan_start: null
-   name: private
-   vlan_start: null
--
- - cidr: 10.20.0.0/24
-   gateway: 10.20.0.2
-   group_id: null

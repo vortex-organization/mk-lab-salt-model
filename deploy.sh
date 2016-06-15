@@ -51,7 +51,7 @@ do
      fuel --env $ID node set --node-id=$item --role=compute;
 done
 
-#mkdir deployment
+mkdir deployment
 
 echo "waiting for applying changes"
 sleep 30

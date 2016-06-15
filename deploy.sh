@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #yum install -y patch
 verify=""
 fuel environment create --name Perf-1 --release 2

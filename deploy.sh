@@ -59,13 +59,13 @@ sleep 15
 fuel --env $ID deployment default
 
 mv /root/deployment_$ID/$ID_CONTROLLER.yaml /root/deployment/controller.yaml
-curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/CONTROLLER.patch' | patch -b -d /root/ -p1
+curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/CONTROLLER2.patch' | patch -b -d /root/ -p1
 mv /root/deployment/controller.yaml /root/deployment_$ID/$ID_CONTROLLER.yaml
 
 for item in $ID_OTHER;
 do
 	mv /root/deployment_$ID/$item.yaml /root/deployment/compute.yaml
-	curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/COMPUTE.patch' | patch -b -d /root/ -p1
+	curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/COMPUTE2.patch' | patch -b -d /root/ -p1
 	mv /root/deployment/compute.yaml /root/deployment_$ID/$item.yaml
 done
 #fuel --env $ID deployment upload

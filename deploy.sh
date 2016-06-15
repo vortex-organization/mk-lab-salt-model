@@ -54,7 +54,6 @@ mkdir deployment
 
 echo "waiting for applying changes"
 sleep 1
-fuel --env $ID settings download
 fuel --env $ID deployment default
 
 mv /root/deployment_$ID/$ID_CONTROLLER.yaml /root/deployment/controller.yaml
@@ -71,6 +70,7 @@ do
 done
 fuel --env $ID deployment upload
 
+fuel --env $ID settings download
 mv settings_$ID.yaml > settings.yaml
 curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/settings.patch' | patch -b -d /root/ -p1
 mv settings.yaml settings_$ID.yaml

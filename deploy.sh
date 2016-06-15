@@ -38,6 +38,7 @@ do
         fi
         cnt=0
 done
+echo "Enabling 10G interfaces"
 ips=`fuel node | awk '/0c:c4:7a:0c:/ {print $9}'`
 for nod in ${ips[@]};do
         ssh $nod 'ip link set up dev enp2s0f0; ip link set up dev enp2s0f1';

@@ -1,0 +1,59 @@
+--- a/deployment/controller.yaml 2016-06-15 10:07:56.415805874 +0000
++++ b/deployment/controller.yaml       2016-06-15 10:16:26.302250994 +0000
+@@ -388 +388 @@
+-      ipaddr: 172.16.0.4
++      ipaddr: 172.16.53.4
+@@ -406 +406 @@
+-      ipaddr: 172.16.0.3
++      ipaddr: 172.16.53.3
+@@ -423,2 +423,2 @@
+-      - 172.16.0.2/24
+-      gateway: 172.16.0.1
++      - 172.16.0.2/26
++      gateway: 172.16.53.1
+@@ -426 +426 @@
+-        provider_gateway: 172.16.0.1
++        provider_gateway: 172.16.53.1
+@@ -516,0 +517,2 @@
++  - action: add-br
++    name: br-aux
+@@ -520 +522 @@
+-    - br-fw-admin
++    - br-aux
+@@ -525,0 +528,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -528 +543 @@
+-    name: eno1.101
++    name: bond0.1502
+@@ -531 +546 @@
+-    name: eno1.102
++    name: bond0.1503
+@@ -534 +549 @@
+-    name: eno2
++    name: bond0.1501
+@@ -713 +728 @@
+-  public_netmask: 255.255.255.0
++  public_netmask: 255.255.255.192
+@@ -895 +910 @@
+-        vlan_range: 1000:1030
++        vlan_range: 1505:1519
+@@ -917,2 +932,2 @@
+-        - 172.16.0.130:172.16.0.254
+-        gateway: 172.16.0.1
++        - 172.16.53.17:172.16.53.31
++        gateway: 172.16.53.1
+@@ -920 +935 @@
+-        subnet: 172.16.0.0/24
++        subnet: 172.16.53.0/26

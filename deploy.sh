@@ -3,7 +3,6 @@
 verify=""
 fuel environment create --name Perf-1 --release 2
 ID=`fuel env | awk '/Perf-1/ {print $1}'`
-fuel --env $ID settings download
 while [[ "$verify" != "  vlan_start: 101" ]]
 do
 	fuel --env $ID network download
@@ -56,6 +55,7 @@ done
 
 echo "waiting for applying changes"
 sleep 30
+fuel --env $ID settings download
 fuel --env $ID deployment default
 
 #mv /root/deployment_$ID/$ID_CONTROLLER.yaml /root/deployment/controller.yaml

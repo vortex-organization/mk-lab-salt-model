@@ -1,4 +1,4 @@
---- a/deployment/controller.yaml 2016-06-15 10:07:56.415805874 +0000
+--- a/deployment/controller.yaml       2016-06-15 10:07:56.415805874 +0000
 +++ b/deployment/controller.yaml       2016-06-15 10:16:26.302250994 +0000
 @@ -388 +388 @@
 -      ipaddr: 172.16.0.4

@@ -54,7 +54,7 @@ done
 mkdir deployment
 
 echo "waiting for applying changes"
-sleep 30
+sleep 1
 fuel --env $ID settings download
 fuel --env $ID deployment default
 

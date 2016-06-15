@@ -1,0 +1,48 @@
+--- deployment_no_bond/121.yaml 2016-06-15 10:07:55.453816362 +0000
++++ deployment_with_bond/121.yaml       2016-06-15 10:16:25.342261451 +0000
+@@ -388 +388 @@
+-      ipaddr: 172.16.0.4
++      ipaddr: 172.16.53.4
+@@ -406 +406 @@
+-      ipaddr: 172.16.0.3
++      ipaddr: 172.16.53.3
+@@ -494,0 +495,2 @@
++  - action: add-br
++    name: br-aux
+@@ -498 +500 @@
+-    - br-fw-admin
++    - br-aux
+@@ -503,0 +506,13 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -506 +521 @@
+-    name: eno1.101
++    name: bond0.1502
+@@ -509 +524 @@
+-    name: eno1.102
++    name: bond0.1503
+@@ -631 +646 @@
+-  public_netmask: 255.255.255.0
++  public_netmask: 255.255.255.192
+@@ -813 +828 @@
+-        vlan_range: 1000:1030
++        vlan_range: 1505:1519
+@@ -835,2 +850,2 @@
+-        - 172.16.0.130:172.16.0.254
+-        gateway: 172.16.0.1
++        - 172.16.53.17:172.16.53.31
++        gateway: 172.16.53.1
+@@ -838 +853 @@
+-        subnet: 172.16.0.0/24
++        subnet: 172.16.53.0/26

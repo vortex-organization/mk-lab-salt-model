@@ -1,5 +1,5 @@
---- deployment_no_bond/121.yaml 2016-06-15 10:07:55.453816362 +0000
-+++ deployment_with_bond/121.yaml       2016-06-15 10:16:25.342261451 +0000
+--- a/deployment/compute.yaml 2016-06-15 10:07:55.453816362 +0000
++++ b/deployment/compute.yaml       2016-06-15 10:16:25.342261451 +0000
 @@ -388 +388 @@
 -      ipaddr: 172.16.0.4
 +      ipaddr: 172.16.53.4

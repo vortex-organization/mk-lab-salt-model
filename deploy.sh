@@ -77,4 +77,12 @@ curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR
 mv settings.yaml settings_$ID.yaml
 fuel --env $ID settings upload
 
+mkdir deploy_param_$ID
+mv compute_* deploy_param_$ID/
+mv deployment_94/ deploy_param_$ID/
+mv network* deploy_param_$ID/
+mv settings* deploy_param_$ID/
+mv controller* deploy_param_$ID/
+rm -r deployment/
+
 #fuel --env $ID deploy-changes

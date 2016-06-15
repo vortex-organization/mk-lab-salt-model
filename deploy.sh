@@ -70,4 +70,10 @@ do
         mv /root/deployment/compute.yaml /root/deployment_$ID/$item.yaml
 done
 fuel --env $ID deployment upload
+
+mv settings_$ID.yaml > settings.yaml
+curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/settings.patch' | patch -b -d /root/ -p1
+mv settings.yaml settings_$ID.yaml
+fuel --env $ID settings upload
+
 #fuel --env $ID deploy-changes

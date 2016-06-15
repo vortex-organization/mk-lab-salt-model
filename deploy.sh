@@ -42,15 +42,12 @@ do
 	fi
 done
 ips=`fuel node | awk '/0c:c4:7a:0c:/ {print $9}'`
-for nod in ${ips[@]};
-do
-	ssh $nod 'ip link set up dev enp2s0f0; ip link set up dev enp2s0f1'
+for nod in ${ips[@]};do
+	ssh $nod 'ip link set up dev enp2s0f0; ip link set up dev enp2s0f1';
 done
 ID_CONTROLLER=`fuel node | awk '/discover/ {print $1}' | head -n 1`
 ID_OTHER=`fuel node | awk '/discover/ {print $1}' | sed '1d'`
-
 fuel --env $ID node set --node-id=$ID_CONTROLLER --role=controller
-
 for item in ${ID_OTHER[@]};
 do
      fuel --env $ID node set --node-id=$item --role=compute;

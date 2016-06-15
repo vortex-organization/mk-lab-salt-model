@@ -13,6 +13,7 @@ do
 	verify=`awk '(NR == 70)' network.yaml`
 	echo $verify
 done
+echo $verify
 sleep 1
 curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/network_diff.patch' | patch -b -d /root/ -p1
 mv network.yaml network_$ID.yaml

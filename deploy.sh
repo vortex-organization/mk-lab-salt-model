@@ -20,7 +20,7 @@ stop=5
 cnt=0
 while [ $i != $stop ]
 do
-    a=`fuel node | awk '/discover/ {print $1}'`
+	a=`fuel node | awk '/discover/ {print $1}'`
 	for item in ${a[@]}; do cnt=$[cnt+1];done
 	if [[ -n $a ]]; then
                 i=$stop
@@ -33,9 +33,8 @@ do
                         echo "waiting for nodes"
                         sleep 60
                 fi
-    fi
+    	fi
 done
-
 ID_CONTROLLER=`fuel node | awk '/discover/ {print $1}' | head -n 1`
 ID_OTHER=`fuel node | awk '/discover/ {print $1}' | sed '1d'`
 

@@ -18,29 +18,35 @@ fuel --env $ID network upload
 i=0
 stop=5
 cnt=0
-while [ $i != $stop ]
+while [ $i != $stop ];
 do
 	a=`fuel node | awk '/discover/ {print $1}'`
-	for item in ${a[@]}; do cnt=$[cnt+1];done
-	if [[ -n $a ]]; then
+	for item in ${a[@]};
+	do
+		cnt=$[cnt+1];
+	done
+	if [[ -n $a ]];
+	then
                 i=$stop
                 echo "Found $cnt nodes"
         else
                 i=$[i+1]
-                if [[ $i == $stop ]]; then
-                        echo "No nodes discovered for $[$i*60] sec"
+                if [[ $i == $stop ]];
+                then
+                	echo "No nodes discovered for $[$i*60] sec"
                 else
-                        echo "waiting for nodes"
-                        sleep 60
+                	echo "waiting for nodes"
+                	sleep 60
                 fi
-    	fi
+	fi
 done
 ID_CONTROLLER=`fuel node | awk '/discover/ {print $1}' | head -n 1`
 ID_OTHER=`fuel node | awk '/discover/ {print $1}' | sed '1d'`
 
 fuel --env $ID node set --node-id=$ID_CONTROLLER --role=controller
 
-for item in ${ID_OTHER[@]};do
+for item in ${ID_OTHER[@]};
+do
      fuel --env $ID node set --node-id=$item --role=compute;
 done
 
@@ -54,7 +60,7 @@ mv /root/deployment_$ID/$ID_CONTROLLER.yaml /root/deployment/controller.yaml
 curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/CONTROLLER.patch' | patch -b -d /root/ -p1
 mv /root/deployment/controller.yaml /root/deployment_$ID/$ID_CONTROLLER.yaml
 
-for item in $ID_OTHER
+for item in $ID_OTHER;
 do
 	mv /root/deployment_$ID/$item.yaml /root/deployment/compute.yaml
 	curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/COMPUTE.patch' | patch -b -d /root/ -p1

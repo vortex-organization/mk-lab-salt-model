@@ -1,20 +1,18 @@
 #!/bin/bash
-yum install -y patch
+#yum install -y patch
 verify=""
-
 fuel environment create --name Perf-1 --release 2
 ID=`fuel env | awk '/Perf-1/ {print $1}'`
-
 fuel --env $ID settings download
-while [ $verify != "  vlan_start: 101" ]
+while [ $verify != "  vlan_start: 101" ];
 do
-	fuel --env $ID network download
-	mv network_$ID.yaml network.yaml
-	verify=`awk '(NR == 70)' network.yaml`
+	fuel --env $ID network download;
+	mv network_$ID.yaml network.yaml;
+	verify=`awk '(NR == 70)' network.yaml`;
 	echo $verify
 done
-echo $verify
-sleep 1
+echo $verify;
+sleep 1;
 curl -s 'https://raw.githubusercontent.com/vortex610/deploy/master/VLAN_bond_DVR_OFF/Perf-1/1/network_diff.patch' | patch -b -d /root/ -p1
 mv network.yaml network_$ID.yaml
 fuel --env $ID network upload

@@ -79,7 +79,7 @@ fuel --env $ID settings upload
 
 mkdir deploy_param_$ID
 mv compute_* deploy_param_$ID/
-mv deployment_94/ deploy_param_$ID/
+mv deployment_$ID/ deploy_param_$ID/
 mv network* deploy_param_$ID/
 mv settings* deploy_param_$ID/
 mv controller* deploy_param_$ID/

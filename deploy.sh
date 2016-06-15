@@ -4,7 +4,7 @@ verify=""
 fuel environment create --name Perf-1 --release 2
 ID=`fuel env | awk '/Perf-1/ {print $1}'`
 fuel --env $ID settings download
-while [[ $verify != "  vlan_start: 101" ]];
+while [[ "$verify" != "  vlan_start: 101" ]]
 do
 	fuel --env $ID network download
 	mv network_$ID.yaml network.yaml

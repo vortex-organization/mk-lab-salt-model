@@ -1,1 +1,59 @@
-
+--- deployment_std/5.yaml       2016-06-24 10:02:54.434200614 +0000
++++ deployment_3/5.yaml 2016-06-24 10:05:45.489294163 +0000
+@@ -398,0 +399,13 @@
++      ethtool:
++        offload:
++          generic-receive-offload: true
++          generic-segmentation-offload: true
++          receive-hashing: true
++          rx-all: true
++          rx-checksumming: true
++          rx-vlan-offload: true
++          scatter-gather: true
++          tcp-segmentation-offload: true
++          tx-checksumming: true
++          tx-nocache-copy: true
++          tx-vlan-offload: true
+@@ -471,0 +485,2 @@
++  - action: add-br
++    name: br-aux
+@@ -475 +490 @@
+-    - br-fw-admin
++    - br-aux
+@@ -483,0 +499,30 @@
++  - action: add-bond
++    bond_properties:
++      lacp_rate: slow
++      mode: 802.3ad
++      xmit_hash_policy: layer3+4
++    bridge: br-aux
++    interface_properties:
++      ethtool:
++        offload:
++          generic-receive-offload: true
++          generic-segmentation-offload: true
++          l2-fwd-offload: true
++          large-receive-offload: true
++          ntuple-filters: true
++          receive-hashing: true
++          rx-all: true
++          rx-checksumming: true
++          rx-vlan-filter: true
++          rx-vlan-offload: true
++          scatter-gather: true
++          tcp-segmentation-offload: true
++          tx-checksumming: true
++          tx-nocache-copy: true
++          tx-vlan-offload: true
++      vendor_specific:
++        disable_offloading: true
++    interfaces:
++    - enp2s0f0
++    - enp2s0f1
++    name: bond0
+@@ -486 +531 @@
+-    name: eno1.1503
++    name: bond0.1503
+@@ -489 +534 @@
+-    name: eno1.1501
++    name: bond0.1501

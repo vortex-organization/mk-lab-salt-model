@@ -1,5 +1,5 @@
---- deployment_std/9.yaml       2016-06-24 10:02:54.898195440 +0000
-+++ deployment_3/9.yaml 2016-06-24 10:05:45.966288850 +0000
+--- a/deployment/compute.yaml       2016-06-24 10:02:54.898195440 +0000
++++ b/deployment/compute.yaml 2016-06-24 10:05:45.966288850 +0000
 @@ -395,0 +396,13 @@
 +      ethtool:
 +        offload:

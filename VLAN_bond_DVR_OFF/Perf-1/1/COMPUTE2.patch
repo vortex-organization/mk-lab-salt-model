@@ -1,9 +1,17 @@
-@@ -461,0 +462,12 @@
+
+@@ -451,0 +452,2 @@
++  - action: add-br
++    name: br-aux
+@@ -455 +457 @@
+-    - br-fw-admin
++    - br-aux
+@@ -463,0 +466,13 @@
 +  - action: add-bond
 +    bond_properties:
 +      lacp_rate: slow
 +      mode: 802.3ad
 +      xmit_hash_policy: layer3+4
++    bridge: br-aux
 +    interface_properties:
 +      vendor_specific:
 +        disable_offloading: true
@@ -11,6 +19,6 @@
 +    - enp2s0f0
 +    - enp2s0f1
 +    name: bond0
-@@ -464 +476 @@
+@@ -466 +481 @@
 -    name: eno1.1503
 +    name: bond0.1503

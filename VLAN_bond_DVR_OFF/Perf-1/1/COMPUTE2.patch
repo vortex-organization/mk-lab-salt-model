@@ -1,4 +1,5 @@
-
+--- a/deployment/compute.yaml	2016-06-14 12:37:48.694108171 +0000
++++ b/deployment/compute.yaml	2016-06-14 12:41:20.984979943 +0000
 @@ -451,0 +452,2 @@
 +  - action: add-br
 +    name: br-aux

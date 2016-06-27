@@ -1,18 +1,15 @@
 --- a/deployment/controller.yaml	2016-06-14 12:37:48.225112981 +0000
 +++ b/deployment/controller.yaml	2016-06-14 12:41:20.477984947 +0000
-@@ -473,0 +474,2 @@
-+  - action: add-br
-+    name: br-aux
-@@ -477 +479 @@
--    - br-fw-admin
-+    - br-aux
-@@ -485,0 +488,13 @@
+@@ -487,3 +486,0 @@
+-    bridge: br-storage
+-    name: eno1.1503
+-  - action: add-port
+@@ -491,0 +489,15 @@
 +  - action: add-bond
 +    bond_properties:
 +      lacp_rate: slow
 +      mode: 802.3ad
 +      xmit_hash_policy: layer3+4
-+    bridge: br-aux
 +    interface_properties:
 +      vendor_specific:
 +        disable_offloading: true
@@ -20,9 +17,6 @@
 +    - enp2s0f0
 +    - enp2s0f1
 +    name: bond0
-@@ -488 +503 @@
--    name: eno1.1503
++  - action: add-port
++    bridge: br-storage
 +    name: bond0.1503
-@@ -491 +506 @@
--    name: eno1.1501
-+    name: bond0.1501

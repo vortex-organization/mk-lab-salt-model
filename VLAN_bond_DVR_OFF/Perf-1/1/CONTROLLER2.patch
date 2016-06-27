@@ -1,3 +1,5 @@
+--- a/deployment/controller.yaml	2016-06-14 12:37:48.225112981 +0000
++++ b/deployment/controller.yaml	2016-06-14 12:41:20.477984947 +0000
 @@ -473,0 +474,2 @@
 +  - action: add-br
 +    name: br-aux

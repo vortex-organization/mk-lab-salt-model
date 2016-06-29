@@ -23,7 +23,7 @@ while [[ $i != $stop ]];
 do
         a=`fuel node | awk '/discover/ {print $1}'`
         for item in ${a[@]};do cnt=$[cnt+1]; done
-        if [[ $cnt == "3" ]];then
+        if [[ $cnt == "4" ]];then
                 i=$stop
                 echo "Found $cnt nodes"
         else

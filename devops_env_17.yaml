@@ -1,0 +1,301 @@
+---
+aliases:
+  management_pool:
+   - &management 192.168.170.0/24:24
+
+  storage_pool:
+   - &storage 192.168.171.0/24:24
+
+  public_pool:
+   - &public 172.16.53.0/26:26
+
+  fuelweb_pool:
+  - &fuelweb 10.17.0.0/16:16
+
+  private_pool:
+  - &private 192.168.174.0/22:22  
+
+  default_interface_model:
+   - &interface_model !os_env INTERFACE_MODEL, e1000
+  
+
+template:
+  devops_settings:
+    env_name: !os_env ENV_NAME
+
+    address_pools:
+      fuelweb_admin-pool01:
+        net: *fuelweb
+        params:
+          vlan_start: 17
+          ip_reserved:
+            gateway: +1
+            l2_network_device: +1  # l2_network_device will get this IP address
+          ip_ranges:
+            default: [+2, -2]
+
+      public-pool01:
+        net: *public
+        params:
+          vlan_start: 174
+          ip_reserved:
+            gateway: +1
+            l2_network_device: +1  # l2_network_device will get this IP address
+          ip_ranges:
+            default: [172.16.53.2, 172.16.53.16]  # public IP range for 'default' nodegroup name
+            floating: [172.16.53.17, 172.16.53.31]
+
+      storage-pool01:
+        net: *storage
+        params:
+          vlan_start: 171
+
+      management-pool01:
+        net: *management
+        params:
+          vlan_start: 170
+
+      private-pool01:
+        net: *private
+        params:
+          vlan_start: 1041
+          vlan_end: 1060
+
+    groups:
+     - name: default
+       driver:
+         name: devops.driver.libvirt
+         params:
+           connection_string: !os_env CONNECTION_STRING, qemu:///system
+           storage_pool_name: !os_env STORAGE_POOL_NAME, default
+           stp: True
+           hpet: False
+           use_host_cpu: !os_env DRIVER_USE_HOST_CPU, true
+
+       network_pools:  # Address pools for OpenStack networks.
+         fuelweb_admin: fuelweb_admin-pool01
+         public: public-pool01
+         storage: storage-pool01
+         management: management-pool01
+         private: private-pool01
+
+       l2_network_devices:  
+         bridge:
+           dhcp: false
+           vlan_ifaces:
+             - 17 
+           forward:
+             mode: bridge
+           parent_iface:
+             phys_dev: ens3f1
+         admin:
+           address_pool: fuelweb_admin-pool01
+           dhcp: false
+           forward:
+             mode: nat
+           parent_iface:
+             #phys_dev: br-net
+             l2_net_dev: bridge
+             tag: 17
+         uplink:
+            address_pool: public-pool01
+            dhcp: false
+            forward:
+              mode: bridge
+            parent_iface:
+              phys_dev: br-uplink
+              #l2_net_dev: br-uplink
+              tag: 2
+         #   #vlan_ifaces:
+         #   #  - 2
+       nodes:
+        - name: admin        # Custom name of VM for Fuel admin node
+          role: fuel_master  # Fixed role for Fuel master node properties
+          params:
+            vcpu: !os_env ADMIN_NODE_CPU, 4
+            memory: !os_env ADMIN_NODE_MEMORY, 3072
+            boot:
+              - hd
+              - cdrom  # for boot from usb - without 'cdrom'
+            volumes:
+             - name: system
+               capacity: !os_env ADMIN_NODE_VOLUME_SIZE, 75
+               format: qcow2
+             - name: iso
+               source_image: !os_env ISO_PATH    # if 'source_image' set, then volume capacity is calculated from it's size
+               format: raw
+               device: cdrom   # for boot from usb - 'disk'
+               bus: ide        # for boot from usb - 'usb'
+            interfaces:
+             - label: iface1
+               l2_network_device: admin    # Libvirt bridge name. It is *NOT* a Nailgun network
+               interface_model: *interface_model
+             - label: iface2
+               l2_network_device: uplink
+               interface_model: *interface_model
+
+            network_config:
+              iface1:
+                networks:
+                 - fuelweb_admin
+              iface2:
+                networks:
+                 - public
+# SELECT servers.name as server, mac, server_interfaces.name as interface
+# FROM server_interfaces,servers
+# WHERE server_id IN 
+# (SELECT _id FROM servers WHERE default_env_id='6')
+# AND servers._id = server_interfaces.server_id
+# ORDER BY server, interface;
+#
+#
+# server |        mac        | interface 
+#--------+-------------------+-----------
+# cz5598 | 00:25:90:e9:c2:3a | eth0
+# cz5598 | 00:25:90:eb:de:88 | eth2
+# cz5598 | 00:25:90:eb:de:89 | eth3
+# cz7048 | 00:25:90:e3:3b:86 | eth0
+# cz7048 | 0c:c4:7a:1d:8c:f4 | eth2
+# cz7048 | 0c:c4:7a:1d:8c:f5 | eth3
+# cz7049 | 00:25:90:e3:37:34 | eth0
+# cz7049 | 0c:c4:7a:1d:92:9a | eth2
+# cz7049 | 0c:c4:7a:1d:92:9b | eth3
+# cz7050 | 00:25:90:e3:37:2c | eth0
+# cz7050 | 0c:c4:7a:1d:8c:16 | eth2
+# cz7050 | 0c:c4:7a:1d:8c:17 | eth3
+     - name: hw_nodes
+       driver:
+         name: devops.driver.baremetal
+       network_pools:  # Address pools for OpenStack networks.
+
+         fuelweb_admin: fuelweb_admin-pool01
+         public: public-pool01
+         storage: storage-pool01
+         management: management-pool01
+         private: private-pool01
+
+       nodes:
+       
+        # node id: cz7117  
+        - name: slave-01 
+          role: fuel_slave
+          params:
+            ipmi_user: !os_env IPMI_USER
+            ipmi_password: IaE4GDAloX
+            ipmi_previlegies: OPERATOR
+            ipmi_host: 185.8.58.54
+            ipmi_lan_interface: lanplus
+            ipmi_port: 623
+
+            interfaces:
+             - label: eth0
+               mac_address: 0c:c4:7a:0c:93:24
+             - label: eth2
+               mac_address: 0c:c4:7a:1d:ff:26 
+             - label: eth3
+               mac_address: 0c:c4:7a:1d:ff:27
+            network_config:
+              eth0:
+                networks:
+                 - public
+                 - fuelweb_admin
+              eth2:
+                networks:
+                 - storage
+                 - management
+              eth3:
+                 networks:
+                 - private
+         
+        # node id: cz7118  
+        - name: slave-02 
+          role: fuel_slave
+          params:
+            ipmi_user: !os_env IPMI_USER
+            ipmi_password: IaE4GDAloX
+            ipmi_previlegies: OPERATOR
+            ipmi_host: 185.8.58.56
+            ipmi_lan_interface: lanplus
+            ipmi_port: 623
+
+            interfaces:
+             - label: eth0
+               mac_address: 0c:c4:7a:0c:93:40
+             - label: eth2
+               mac_address: 0c:c4:7a:1d:fe:d4 
+             - label: eth3
+               mac_address: 0c:c4:7a:1d:fe:d5
+            network_config:
+              eth0:
+                networks:
+                 - public
+                 - fuelweb_admin
+              eth2:
+                networks:
+                 - storage
+                 - management
+              eth3:
+                 networks:
+                 - private
+         
+        # node id: cz7119  
+        - name: slave-03 
+          role: fuel_slave
+          params:
+            ipmi_user: !os_env IPMI_USER
+            ipmi_password: IaE4GDAloX
+            ipmi_previlegies: OPERATOR
+            ipmi_host: 185.8.58.55
+            ipmi_lan_interface: lanplus
+            ipmi_port: 623
+
+            interfaces:
+             - label: eth0
+               mac_address: 0c:c4:7a:0c:92:f6
+             - label: eth2
+               mac_address: 0c:c4:7a:1e:09:b2 
+             - label: eth3
+               mac_address: 0c:c4:7a:1e:09:b3
+            network_config:
+              eth0:
+                networks:
+                 - public
+                 - fuelweb_admin
+              eth2:
+                networks:
+                 - storage
+                 - management
+              eth3:
+                 networks:
+                 - private
+         
+        # node id: cz7120  
+        - name: slave-04 
+          role: fuel_slave
+          params:
+            ipmi_user: !os_env IPMI_USER
+            ipmi_password: IaE4GDAloX
+            ipmi_previlegies: OPERATOR
+            ipmi_host: 185.8.58.57
+            ipmi_lan_interface: lanplus
+            ipmi_port: 623
+
+            interfaces:
+             - label: eth0
+               mac_address: 0c:c4:7a:0c:93:46
+             - label: eth2
+               mac_address: 0c:c4:7a:1e:05:86 
+             - label: eth3
+               mac_address: 0c:c4:7a:1e:05:87
+            network_config:
+              eth0:
+                networks:
+                 - public
+                 - fuelweb_admin
+              eth2:
+                networks:
+                 - storage
+                 - management
+              eth3:
+                 networks:
+                 - private

@@ -45,7 +45,7 @@ class MultiroleComputeCinder(TestBasic):
     """Test Ceph Wally"""
 
     @test(depends_on=[SetupEnvironment.prepare_slaves_3], 
-	      depends_on_groups=["deploy_master_custom"],
+	  depends_on_groups=["deploy_master_custom"],
           groups=["deploy_run_wally"])
     @log_snapshot_after_test
     def deploy_run_wally(self):
@@ -55,8 +55,8 @@ class MultiroleComputeCinder(TestBasic):
             1. Create cluster with Ceph
             2. Add 1 node with controller role
             3. Add 2 node with compute roles
-			4. Add 5 node with ceph-osd roles
-			5. Config ceph_journal on SSD disks
+	    4. Add 5 node with ceph-osd roles
+	    5. Config ceph_journal on SSD disks
             6. Deploy the cluster
             5. Run Wally tests
             6. Collect and send report to Testrail
@@ -64,7 +64,7 @@ class MultiroleComputeCinder(TestBasic):
         Duration ~330 m
 
         """
-		self.check_run("empty_ifup")
+	self.check_run("empty_ifup")
         self.show_step(1)
         self.env.revert_snapshot("ready_with_8_slaves")
 
@@ -78,11 +78,11 @@ class MultiroleComputeCinder(TestBasic):
                 'slave-01': ['controller'],
                 'slave-02': ['compute'],
                 'slave-03': ['compute'],
-				'slave-04': ['ceph-osd'],
-				'slave-05': ['ceph-osd'],
-				'slave-06': ['ceph-osd'],
-				'slave-07': ['ceph-osd'],
-				'slave-08': ['ceph-osd']
+		'slave-04': ['ceph-osd'],
+		'slave-05': ['ceph-osd'],
+		'slave-06': ['ceph-osd'],
+		'slave-07': ['ceph-osd'],
+		'slave-08': ['ceph-osd']
             }
         )
         self.fuel_web.deploy_cluster_wait(cluster_id)

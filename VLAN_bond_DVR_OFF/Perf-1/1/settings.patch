@@ -1,8 +1,0 @@
---- a/settings.yaml   2016-06-15 14:14:00.499772499 +0000
-+++ b/settings.yaml     2016-06-15 14:20:44.515409894 +0000
-@@ -138 +138 @@
--      value: false
-+      value: true
-@@ -144 +144 @@
--      value: qemu
-+      value: kvm

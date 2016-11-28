@@ -1,0 +1,14 @@
+classes:
+- service.kibana.server.single
+parameters:
+  kibana:
+    server:
+      enabled: true
+      bind:
+        address: ${_param:single_address}
+        port: ${_param:kibana_port}
+      database:
+        engine: elasticsearch
+        host: ${_param:kibana_elasticsearch_host}
+        port: 9200
+
